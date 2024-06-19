@@ -9,10 +9,7 @@ import io.ktor.server.routing.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.transaction
 import tables.Participants
-import types.Match
-import types.ParticipantRequest
-import types.ParticipantResponse
-import types.Participant
+import types.*
 
 
 fun Application.configureParticipantRouting() {
@@ -93,6 +90,22 @@ fun Application.configureParticipantRouting() {
                 transaction {
                     participant.checkedIn = true
                 }
+
+                val matchId = transaction {
+                    Round.findById(1)!!.asVerboseResponse().matches.minByOrNull { (it).participants.size }!!.id
+                }
+
+                val match = transaction {
+                    Match.findById(matchId)
+                }
+
+                transaction {
+                    MatchParticipant.new {
+                        this.match = match!!
+                        this.participant = participant
+                    }
+                }
+
                 call.respond(HttpStatusCode.OK, participant.checkedIn)
             }
 
