@@ -49,6 +49,8 @@ fun Application.configureAuth() {
         // Default Session information
         cookie<UserSession>("gpo_internal") {
             cookie.path = "/"
+            cookie.extensions["SameSite"] = "none"
+            cookie.secure = true
             cookie.maxAgeInSeconds = 60000
         }
     }
