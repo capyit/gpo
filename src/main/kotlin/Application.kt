@@ -65,6 +65,8 @@ fun Application.module() {
         allowMethod(HttpMethod.Delete)
         allowHeader(HttpHeaders.ContentType)
         allowHeader(HttpHeaders.Authorization)
+        allowNonSimpleContentTypes = true
+        allowHeader("x-requested-with")
     }
 
     configureDB()
