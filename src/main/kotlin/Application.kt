@@ -59,15 +59,6 @@ fun Application.module() {
         anyHost()
     }
 
-    // Set up a route scheme for the frontend at the webserver root
-    routing {
-        singlePageApplication {
-            useResources = true
-            applicationRoute = "/"
-            filesPath = "frontend"
-        }
-    }
-
     configureDB()
 
     /**
