@@ -4,6 +4,7 @@ import api.configureParticipantRouting
 import api.configureRoomRouting
 import auth.configureAuth
 import auth.configureAuthRouting
+import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
@@ -57,6 +58,13 @@ fun Application.module() {
 
     install(CORS){
         anyHost()
+        allowCredentials = true
+        allowMethod(HttpMethod.Options)
+        allowMethod(HttpMethod.Put)
+        allowMethod(HttpMethod.Patch)
+        allowMethod(HttpMethod.Delete)
+        allowHeader(HttpHeaders.ContentType)
+        allowHeader(HttpHeaders.Authorization)
     }
 
     configureDB()
