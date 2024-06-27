@@ -90,7 +90,7 @@ fun Application.configureParticipantRouting() {
                 transaction {
                     participant.checkedIn = true
                 }
-
+/**
                 val matchId = transaction {
                     Round.findById(1)!!.asVerboseResponse().matches.minByOrNull { (it).participants.size }!!.id
                 }
@@ -105,6 +105,7 @@ fun Application.configureParticipantRouting() {
                         this.participant = participant
                     }
                 }
+                */
 
                 call.respond(HttpStatusCode.OK, participant.checkedIn)
             }
